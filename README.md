@@ -3,7 +3,7 @@
 ## About
 
 This project is for developing a database to allow us to calculate the
-Levenshtift distance metric between various NPD/NPR requirements so we
+Levenshtein distance metric between various NPD/NPR requirements so we
 may use a quantitative means to determine which of these stated 
 requirements are similar to other requirements in the same and other 
 NPD/NPRs.
