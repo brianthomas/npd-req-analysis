@@ -44,13 +44,13 @@ export PYTHONPATH=`pwd`
 createdb npdreq 
 
 # initialize the schema
-psql -d npdreq -f schema/db.psql
+psql -d npdreq -U postgres -f schema/db.psql
 
 # load the excel spreadsheet data into the postgresql db. 
 python bin/loader.py -d 'postgresql://postgres@localhost:5432/npdreq' -f data/*.xlsm
 
 # run the analysis (a stored procedure)
-psql -d npdreq -f schema/run_analysis.psql
+psql -d npdreq -U postgres -f schema/run_analysis.psql
 
 ```
 
