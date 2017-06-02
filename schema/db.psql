@@ -1,7 +1,7 @@
 
 drop table if EXISTS requirements;
 create table requirements (
-    id serial,
+    id serial PRIMARY KEY,
     docname varchar,
     reqclass varchar,
     reqsubclass varchar,
