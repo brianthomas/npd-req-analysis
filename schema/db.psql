@@ -1,0 +1,11 @@
+
+drop table if EXISTS requirements;
+create table requirements (
+    id serial,
+    docname varchar,
+    reqclass varchar,
+    reqsubclass varchar,
+    content varchar
+
+);
+    
