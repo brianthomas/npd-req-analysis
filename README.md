@@ -1,12 +1,14 @@
-# NASA NPD Requirements Analysis Db
+# NASA NPD Requirements Analysis Project 
 
 ## About
 
-This project is for developing a database to allow us to calculate the
-Levenshtein distance metric between various NPD/NPR requirements so we
-may use a quantitative means to determine which of these stated 
+This project is for developing code to allow us to calculate a variety
+of metrics between various NPD/NPR requirements so we may use a 
+quantitative means to determine which of these stated 
 requirements are similar to other requirements in the same and other 
 NPD/NPRs.
+
+Currently only Damerau-Levenshtein (DL) and normalized DL is implemented.
 
 Contact: brian.a.thomas@nasa.gov
 
