@@ -1,7 +1,4 @@
 
-import sys
-sys.path.insert(1, "npd/parser.py")
-
 import ocio.textmining.document as d
 
 if __name__ == '__main__':
