@@ -41,11 +41,9 @@ if __name__ == '__main__':
     data = parse(opts.file)
     distances = find_distance(data)
     for result in sorted(distances.items(), key=operator.itemgetter(1)):
-        cols = str(result[0]).split('_')
-        cols.append(str(result[1]))
-        print (str(cols))
-
-    print ("Finished")
+        cols = [int(item) for item in result[0].split('_')]
+        cols.append(result[1])
+        print (', '.join(str(x) for x in cols))
 
 
 
