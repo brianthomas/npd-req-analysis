@@ -40,17 +40,8 @@ pip install -r requirements.txt
 #add aggregate dictionary code to python path 
 export PYTHONPATH=`pwd`
 
-# create the database
-createdb npdreq 
-
-# initialize the schema
-psql -d npdreq -U postgres -f schema/db.psql
-
-# load the excel spreadsheet data into the postgresql db. 
-python bin/loader.py -d 'postgresql://postgres@localhost:5432/npdreq' -f data/*.xlsm
-
-# run the analysis (a stored procedure)
-psql -d npdreq -U postgres -f schema/run_analysis.psql
+# run the NDL algorithm on the excel spreadsheet data
+python bin/find_dl_distance.py -f data/*.xlsm
 
 ```
 
