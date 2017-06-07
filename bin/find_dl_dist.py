@@ -9,13 +9,13 @@ def find_distance(data):
     from pyxdameraulevenshtein import damerau_levenshtein_distance, normalized_damerau_levenshtein_distance
 
     results = {} 
-    idi = 0
+    idi = 2
     for ireq in data:
-        idj = 0
+        idj = 2
         for jreq in data:
             key = _key(idi, idj)
             if key not in results.keys() and idi != idj:
-                results[key] = normalized_damerau_levenshtein_distance(ireq['content'], jreq['content'])
+                results[key] = normalized_damerau_levenshtein_distance(ireq['content'].strip(), jreq['content'].strip())
             idj = idj + 1
         idi = idi + 1
              
