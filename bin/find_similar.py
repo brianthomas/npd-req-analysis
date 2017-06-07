@@ -1,4 +1,6 @@
 
+# initial stub code (unfinished, to calculate document similarity using LDA approach)
+
 import ocio.textmining.document as d
 
 if __name__ == '__main__':
