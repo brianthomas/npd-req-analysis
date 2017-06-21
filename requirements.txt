@@ -1,3 +1,2 @@
 openpyxl==2.4.8
 pyxDamerauLevenshtein==1.4.1
-textmining-ocio==0.8.7
