@@ -15,7 +15,18 @@ def find_distance(data):
         for jreq in data:
             key = _key(idi, idj)
             if key not in results.keys() and idi != idj:
-                results[key] = normalized_damerau_levenshtein_distance(ireq['content'].strip(), jreq['content'].strip())
+ 
+                ireq_txt = ""
+                if ireq['content']: 
+                    ireq_txt = ireq['content'].strip()
+                jreq_txt = ""
+                if jreq['content']: 
+                    jreq_txt = jreq['content'].strip()
+                if ireq_txt == "" and jreq_txt == "": 
+                    # trivial case, NO requirements text to cross compare
+                    pass
+                else:
+                    results[key] = normalized_damerau_levenshtein_distance(ireq_txt, jreq_txt)
             idj = idj + 1
         idi = idi + 1
              
