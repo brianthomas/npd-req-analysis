@@ -8,6 +8,7 @@ def _key(index1, index2):
 def find_distance(data):
     from pyxdameraulevenshtein import damerau_levenshtein_distance, normalized_damerau_levenshtein_distance
 
+    # print("RUNNING on "+str(len(data))+" lines of data") 
     results = {} 
     idi = 2
     for ireq in data:
@@ -40,6 +41,7 @@ if __name__ == '__main__':
     # Use nargs to specify how many arguments an option should take.
     ap = argparse.ArgumentParser(description='XLSM requirements db loader')
     ap.add_argument('-f', '--file', type=str, help='Name of the Excel file which holds the data')
+    ap.add_argument('-X', '--excel', type=bool, default=False, help='Whether file is in Excell format')
 
     # parse argv
     opts = ap.parse_args()
@@ -49,12 +51,21 @@ if __name__ == '__main__':
         ap.print_usage()
         exit()
 
-    data = parse(opts.file)
+    data = []
+    if opts.excel:
+        data = parse(opts.file)
+    else:
+        with open(opts.file, 'r') as f:
+            for item in f.readlines():
+                data.append({'content':item}) 
+
     distances = find_distance(data)
     for result in sorted(distances.items(), key=operator.itemgetter(1)):
         cols = [int(item) for item in result[0].split('_')]
         cols.append(result[1])
         print (', '.join(str(x) for x in cols))
+        # DEBUG comparison by showing compared lines in situ of output
+  #      print ('    ' + data[cols[0]-2]['content'] + " VS " + data[cols[1]-2]['content']) 
 
 
 
