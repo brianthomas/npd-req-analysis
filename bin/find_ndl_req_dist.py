@@ -1,3 +1,10 @@
+''' 
+   Find the Normalized Damerau Levenshtein distance for requirements held in an excel spreadsheet.
+
+   Created on June 6, 2017
+
+   @author: thomas
+'''
 
 def _key(index1, index2):
     if index1 >= index2:
