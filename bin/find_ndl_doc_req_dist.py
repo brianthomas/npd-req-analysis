@@ -92,6 +92,9 @@ if __name__ == '__main__':
     # load/parse paragraphs from document
     paragraphs = parse_doc_to_paragraphs(opts.doc)
 
+    # for dumping paragraphs
+    #for p in paragraphs: print(p)
+
     # calc distances now
     distances = find_distance(paragraphs, reqs)
 
