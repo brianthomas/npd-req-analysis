@@ -13,52 +13,48 @@ def _key(index1, index2):
     else:
         return str(index1) + '_' + str(index2)
 
-def find_distance(pages, reqs):
+def find_distance(paragraphs, reqs):
     from pyxdameraulevenshtein import damerau_levenshtein_distance, normalized_damerau_levenshtein_distance
 
     # print("RUNNING on "+str(len(reqs))+" requirements") 
     results = {} 
     id_req = 2
     for req in reqs:
-        id_page = 1
-        for p in pages:
-            key = _key(id_req, id_page)
+        id_paragraph = 1
+        for p in paragraphs:
+            key = _key(id_req, id_paragraph)
             if key not in results.keys():
  
                 req_txt = ""
                 if req['content']: 
                     req_txt = req['content'].strip()
-                page_txt = ""
+                paragraph_txt = ""
                 if p: 
-                    page_txt = p.strip()
-                if req_txt == "" and page_txt == "": 
+                    paragraph_txt = p.strip()
+                if req_txt == "" and paragraph_txt == "": 
                     # trivial case, NO text to cross compare
                     pass
                 else:
-                    results[key] = normalized_damerau_levenshtein_distance(req_txt, page_txt)
-            id_page = id_page + 1
+                    results[key] = normalized_damerau_levenshtein_distance(req_txt, paragraph_txt)
+            id_paragraph = id_paragraph + 1
         id_req = id_req + 1
              
     return results
 
-def parse_doc_to_pages(doc): 
-    import PyPDF2
+def parse_doc_to_paragraphs(doc): 
+    import docx
 
     # open the document 
-    f = open(doc, 'rb')
-    document = PyPDF2.PdfFileReader(f)
+    document = docx.Document(doc)
 
     #parse it for paragraphs, capturing metadata about document location they are in
-    pages = []
+    paragraphs = []
 
-    for p in range(0,document.getNumPages()):
-        page = document.getPage(p)
-        pages.append(page.extractText())
-        
+    #count = 0
+    for para in document.paragraphs:
+        paragraphs.append(para.text)
 
-    f.close()
-    #print (pages[0])
-    return pages  
+    return paragraphs
 
 if __name__ == '__main__':
     import argparse
@@ -92,16 +88,17 @@ if __name__ == '__main__':
             for item in f.readlines():
                 reqs.append({'content':item}) 
 
-    # load/parse pages from document
-    pages = parse_doc_to_pages(opts.doc)
+    # load/parse paragraphs from document
+    paragraphs = parse_doc_to_paragraphs(opts.doc)
 
     # calc distances now
-    distances = find_distance(pages, reqs)
+    distances = find_distance(paragraphs, reqs)
 
     # print it out
     for result in sorted(distances.items(), key=operator.itemgetter(1)):
         cols = [int(item) for item in result[0].split('_')]
         cols.append(result[1])
+        cols.append(paragraphs[cols[1]-1])
         print (', '.join(str(x) for x in cols))
         # DEBUG comparison by showing compared lines in situ of output
   #      print ('    ' + data[cols[0]-2]['content'] + " VS " + data[cols[1]-2]['content']) 

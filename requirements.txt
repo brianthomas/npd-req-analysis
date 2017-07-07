@@ -1,5 +1,4 @@
 openpyxl==2.4.8
 pyxDamerauLevenshtein==1.4.1
 beautifulsoup4==4.6.0
-PyPDF2==1.26.0
-jupyter==1.0.0
+python-docx==0.8.6
