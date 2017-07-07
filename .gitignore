@@ -10,6 +10,7 @@ __pycache__/
 #Eclipse
 .project
 .pydevproject
+*.txt
 
 # C extensions
 *.so
