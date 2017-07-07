@@ -65,6 +65,7 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser(description='XLSM requirements db loader')
     ap.add_argument('-d', '--doc', type=str, help='Name of the document (NPR/NPD) we want to compare to requirements')
     ap.add_argument('-r', '--reqs', type=str, help='Name of the Excel file which holds the data')
+    ap.add_argument('-i', '--include_text', type=bool, default=False, help='Whether to include matching doc text in results')
     ap.add_argument('-X', '--excel', type=bool, default=False, help='Whether req file is in Excel format')
 
     # parse argv
@@ -98,7 +99,8 @@ if __name__ == '__main__':
     for result in sorted(distances.items(), key=operator.itemgetter(1)):
         cols = [int(item) for item in result[0].split('_')]
         cols.append(result[1])
-        cols.append(paragraphs[cols[1]-1])
+        if opts.include_text:
+            cols.append(paragraphs[cols[1]-1])
         print (', '.join(str(x) for x in cols))
         # DEBUG comparison by showing compared lines in situ of output
   #      print ('    ' + data[cols[0]-2]['content'] + " VS " + data[cols[1]-2]['content']) 
