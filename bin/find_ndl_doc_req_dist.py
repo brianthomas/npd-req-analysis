@@ -8,15 +8,25 @@
 '''
 
 def _key(index1, index2):
-    if index1 >= index2:
-        return str(index2) + '_' + str(index1)
-    else:
-        return str(index1) + '_' + str(index2)
+    return str(index1) + '_' + str(index2)
+
+def _get_para_text(p):
+    paragraph_txt = ""
+    if p:
+        paragraph_txt = p.strip()
+    return paragraph_txt
+
+def _get_req_text(req):
+    req_txt = ""
+    if req['content']:
+        req_txt = req['content'].strip()
+    return req_txt
 
 def find_distance(paragraphs, reqs):
     from pyxdameraulevenshtein import damerau_levenshtein_distance, normalized_damerau_levenshtein_distance
 
-    # print("RUNNING on "+str(len(reqs))+" requirements") 
+    #print("RUNNING on "+str(len(reqs))+" requirements") 
+    #print("RUNNING on "+str(len(paragraphs))+" paragraphs") 
     results = {} 
     id_req = 2
     for req in reqs:
@@ -25,17 +35,16 @@ def find_distance(paragraphs, reqs):
             key = _key(id_req, id_paragraph)
             if key not in results.keys():
  
-                req_txt = ""
-                if req['content']: 
-                    req_txt = req['content'].strip()
-                paragraph_txt = ""
-                if p: 
-                    paragraph_txt = p.strip()
+                req_txt = _get_req_text(req)
+                paragraph_txt = _get_para_text(p)
+
                 if req_txt == "" and paragraph_txt == "": 
                     # trivial case, NO text to cross compare
                     pass
                 else:
+                    # go ahead and calculate our nlp metric
                     results[key] = normalized_damerau_levenshtein_distance(req_txt, paragraph_txt)
+
             id_paragraph = id_paragraph + 1
         id_req = id_req + 1
              
@@ -102,9 +111,15 @@ if __name__ == '__main__':
     for result in sorted(distances.items(), key=operator.itemgetter(1)):
         cols = [int(item) for item in result[0].split('_')]
         cols.append(result[1])
+
         if opts.include_text:
-            cols.append(paragraphs[cols[1]-1])
-        print (', '.join(str(x) for x in cols))
+            req_txt = _get_req_text(reqs[cols[0]-2])
+            cols.append(req_txt.replace('\t', ' ').replace('\n', ' '))
+
+            para_txt = _get_para_text(paragraphs[cols[1]-1])
+            cols.append(para_txt.replace('\t', ' ').replace('\n', ' '))
+
+        print ('\t '.join(str(x) for x in cols))
         # DEBUG comparison by showing compared lines in situ of output
   #      print ('    ' + data[cols[0]-2]['content'] + " VS " + data[cols[1]-2]['content']) 
 
