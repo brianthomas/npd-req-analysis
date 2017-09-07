@@ -15,7 +15,7 @@ def _key(index1, index2):
 def find_distance(data):
     from pyxdameraulevenshtein import damerau_levenshtein_distance, normalized_damerau_levenshtein_distance
 
-    # print("RUNNING on "+str(len(data))+" lines of data") 
+    print("RUNNING on "+str(len(data))+" lines of data") 
     results = {} 
     idi = 2
     for ireq in data:
@@ -48,7 +48,8 @@ if __name__ == '__main__':
     # Use nargs to specify how many arguments an option should take.
     ap = argparse.ArgumentParser(description='XLSM requirements db loader')
     ap.add_argument('-f', '--file', type=str, help='Name of the Excel file which holds the data')
-    ap.add_argument('-X', '--excel', type=bool, default=False, help='Whether file is in Excell format')
+    ap.add_argument('-w', '--worksheet', type=str, default='Rqmts', help='Name of the worksheet where the requirements are held')
+    ap.add_argument('-X', '--excel', type=bool, default=False, help='Whether file is in Excel format')
 
     # parse argv
     opts = ap.parse_args()
@@ -60,7 +61,7 @@ if __name__ == '__main__':
 
     data = []
     if opts.excel:
-        data = parse(opts.file)
+        data = parse(opts.file, opts.worksheet)
     else:
         with open(opts.file, 'r') as f:
             for item in f.readlines():

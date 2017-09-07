@@ -13,25 +13,27 @@
 DesiredWorksheet = 'RQMTs'
 
 SheetToColMap = {
+        'Actor (e.g., OCIO, PM, PE…)'  : None,
         'Identity' : None,
         'DocName'  : 'docname',
+        'Section'  : None,
         'Name'     : None,
         'ReqClass' : 'reqclass',
         'Requirement SubClass' : 'reqsubclass',
         'REQUIREMENT' : 'content',
         };
     
-def parse (filename):
+def parse (filename, worksheet_name=DesiredWorksheet):
     
     # load the workbook from file
     from openpyxl import load_workbook
     wb = load_workbook(filename)
     
     # grab the worksheet we want
-    if DesiredWorksheet not in wb:
+    if worksheet_name not in wb:
         raise Exception("Can't load desired worksheet from Excel file, bailing")
     
-    ws = wb[DesiredWorksheet]
+    ws = wb[worksheet_name]
     
     # parse the column names
     colnames = []
