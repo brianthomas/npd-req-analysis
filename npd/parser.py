@@ -23,7 +23,7 @@ SheetToColMap = {
         'REQUIREMENT' : 'content',
         };
     
-def parse (filename, worksheet_name=DesiredWorksheet):
+def parse (filename, worksheet_name=DesiredWorksheet, colmap=SheetToColMap):
     
     # load the workbook from file
     from openpyxl import load_workbook
@@ -40,7 +40,7 @@ def parse (filename, worksheet_name=DesiredWorksheet):
     for row in ws.iter_rows(min_row=1, max_col=6, max_row=1):
         for cell in row:
             #print(cell.value)
-            mappedVal = SheetToColMap[cell.value]
+            mappedVal = colmap[cell.value]
             colnames.append(mappedVal)
     
     # print (str(colnames))
