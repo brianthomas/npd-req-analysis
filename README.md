@@ -15,8 +15,7 @@ Contact: brian.a.thomas@nasa.gov
 
 ## Loading/Installation
 
-This project is designed and tested against Python 3. You will also need
-to have postgresql 9.x installed on your target machine. 
+This project is designed and tested against Python 3.
 
 An installation script is provided in this distribution and resides
 in the bin directory. There are any number of ways to set up your
@@ -25,10 +24,10 @@ python environment, my preferred one (described below) is using
 
 ```bash
 # clone this repository to your local machine
-git clone https://github.com/brianthomas/ocio-finance-db.git
+git clone https://github.com/brianthomas/npd-req-analysis.git
 
 # switch to the local repository dir
-cd npd-req-analysis-db
+cd npd-req-analysis
 
 # install virtualenv environment for python3
 virtualenv -p <python_3_exe> ./env
@@ -43,6 +42,7 @@ pip install -r requirements.txt
 export PYTHONPATH=`pwd`
 
 # run the NDL algorithm on the excel spreadsheet data
+# note that the spreadsheet was handbuilt by policy folks
 python bin/find_dl_distance.py -f data/*.xlsm
 
 ```
