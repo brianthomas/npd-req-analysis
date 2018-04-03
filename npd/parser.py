@@ -17,6 +17,7 @@ SheetToColMap = {
         'Identity' : None,
         'DocName'  : 'docname',
         'Section'  : None,
+        'NPD or NPR'  : None,
         'Name'     : None,
         'ReqClass' : 'reqclass',
         'Requirement SubClass' : 'reqsubclass',
