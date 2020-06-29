@@ -102,8 +102,9 @@ if __name__ == '__main__':
     paragraphs = parse_doc_to_paragraphs(opts.doc)
 
     # for dumping paragraphs
-    #for p in paragraphs: print(p)
+    for p in paragraphs: print(p.strip())
 
+    '''
     # calc distances now
     distances = find_distance(paragraphs, reqs)
 
@@ -122,5 +123,6 @@ if __name__ == '__main__':
         print ('\t '.join(str(x) for x in cols))
         # DEBUG comparison by showing compared lines in situ of output
   #      print ('    ' + data[cols[0]-2]['content'] + " VS " + data[cols[1]-2]['content']) 
+    '''
 
 
